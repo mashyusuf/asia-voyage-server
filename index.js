@@ -67,6 +67,13 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
+        app.get('/edit-mylist/:id', async (req, res) => {
+            const id = req.params.id;
+            const query ={'_id': new ObjectId(id)};           
+            const cursor = touristSpots.find(query);           
+            const result = await cursor.toArray();
+            res.send(result);
+        });
         // delete 
 
         app.delete('/delete/:id', async (req, res) => {
@@ -75,6 +82,26 @@ async function run() {
             const query = {'_id': new ObjectId(id)};
             const result = await touristSpots.deleteOne(query);
             res.send(result);
+        });
+        // put or update methode
+
+        app.put('/update-mylist/:id', async (req, res) => {
+            const id = req.params.id;
+            const update = req.body;
+            const query = {'_id': new ObjectId(id)};
+            const options = {upsert:true}
+            const updateSpots = {
+                $set: {
+                     country_name:update.country_name,
+                     average_cost:update.average_cost,
+                     tourists_spot_name:update.tourists_spot_name,
+                     average_cost:update.average_cost,
+
+                }
+            };
+            const result = await touristSpots.updateOne(query, updateSpots, options);
+            res.send(result);
+
         })
 
         // Send a ping to confirm a successful connection
