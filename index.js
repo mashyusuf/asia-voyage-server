@@ -74,6 +74,19 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
+
+        app.get('/countries-spots/:country_name', async (req, res) => {
+            const country_name = req.params.country_name;
+            const query = { country_name: country_name };
+            const cursor = touristSpots.find(query);
+            const result = await cursor.toArray();
+            console.log(result);
+            res.send(result);
+            
+        });
+        
+
+      
         // delete 
 
         app.delete('/delete/:id', async (req, res) => {
