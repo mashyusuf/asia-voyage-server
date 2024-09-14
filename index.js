@@ -30,7 +30,6 @@ async function run() {
 
         const touristSpotsCollection = client.db('spotsDB');
         const touristSpots = touristSpotsCollection.collection('spots');
-            
         const countries = touristSpotsCollection.collection('Country');
 
 
